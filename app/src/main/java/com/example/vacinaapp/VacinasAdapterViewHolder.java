@@ -18,4 +18,6 @@ public class VacinasAdapterViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+
+
 }
