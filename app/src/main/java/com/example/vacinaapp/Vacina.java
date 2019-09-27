@@ -1,6 +1,10 @@
 package com.example.vacinaapp;
 
-class Vacina {
+import java.io.Serializable;
+
+class Vacina implements Serializable {
+
+    private static final long serialVersionId = 1L;
     private int id;
     private String nome;
 

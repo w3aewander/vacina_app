@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="14"
+        tools:itemCount="5"
         tools:listitem="@layout/vacina_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
