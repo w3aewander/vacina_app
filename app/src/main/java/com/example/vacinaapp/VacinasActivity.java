@@ -42,7 +42,7 @@ import retrofit2.http.HTTP;
 public class VacinasActivity extends AppCompatActivity {
 
     private VacinasAdapter vacinasAdapter;
-    private static ArrayList<Vacina> vacinas = new ArrayList<>();
+    public static ArrayList<Vacina> vacinas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,14 @@ public class VacinasActivity extends AppCompatActivity {
 
         setTitle("Vacinas oficiais");
 
+        VacinaApi.execute(new Runnable() {
+            @Override
+            public void run() {
+                VacinaApi api = new VacinaApi();
+                api.run();
+            }
+        });
 
-          getVacinas();
 
 //        vacinas = new ArrayList<Vacina>();
 //
@@ -75,61 +81,6 @@ public class VacinasActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Obtém a lista de vacinas
-     * @return
-     */
-    public void getVacinas(){
-
-
-        AsyncTask.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-
-                    URL url = new URL("http://186.237.59.67/api/vacinas");
-                    HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-                    httpConn.setRequestMethod("GET");
-                    InputStream inputStream = httpConn.getInputStream();
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String line = bufferedReader.readLine();
-
-                    JSONArray jsonArray = new JSONArray( line );
-                    vacinas.clear();
-
-                    for ( int i = 0; i < jsonArray.length(); i++){
-
-                         String jsonString  =  jsonArray.getString(i);
-
-                         JSONObject mainObject = new JSONObject(jsonString);
-
-                         String nome = mainObject.getString("nome");
-                        Log.i("LOG", nome);
-
-
-                         Vacina vacina = new Vacina(i,nome);
-                         vacinas.add(vacina);
-                    }
-
-                    httpConn.disconnect();
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-
-            }
-
-        });
-
-    }
 
 
 }
